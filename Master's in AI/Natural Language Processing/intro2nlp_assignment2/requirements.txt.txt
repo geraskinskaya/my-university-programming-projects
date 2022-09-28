@@ -1,0 +1,14 @@
+REQUIRED MODULES:
+-simpletransformers
+-checklist
+-jupyter
+
+NEEDED PACKAGES:
+-csv
+-random
+-numpy
+-simpletransformers
+-pandas
+-pickle
+-checklist
+-spacy
