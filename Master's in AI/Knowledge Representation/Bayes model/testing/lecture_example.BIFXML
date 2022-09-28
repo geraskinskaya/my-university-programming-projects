@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!--Author: Andreas Sauter
+    Bayesian network in XMLBIF v0.3 (BayesNet Interchange Format)
+ -->
+
+<!-- DTD for the XMLBIF 0.3 format -->
+<!DOCTYPE BIF [
+	<!ELEMENT BIF ( NETWORK )*>
+	      <!ATTLIST BIF VERSION CDATA #REQUIRED>
+	<!ELEMENT NETWORK ( NAME, ( PROPERTY | VARIABLE | DEFINITION )* )>
+	<!ELEMENT NAME (#PCDATA)>
+	<!ELEMENT VARIABLE ( NAME, ( OUTCOME |  PROPERTY )* ) >
+	      <!ATTLIST VARIABLE TYPE (nature|decision|utility) "nature">
+	<!ELEMENT OUTCOME (#PCDATA)>
+	<!ELEMENT DEFINITION ( FOR | GIVEN | TABLE | PROPERTY )* >
+	<!ELEMENT FOR (#PCDATA)>
+	<!ELEMENT GIVEN (#PCDATA)>
+	<!ELEMENT TABLE (#PCDATA)>
+	<!ELEMENT PROPERTY (#PCDATA)>
+]>
+
+<BIF VERSION="0.3">
+<NETWORK>
+    <NAME>Lecture Example</NAME>
+
+    <!-- Variables-->
+    <VARIABLE TYPE="nature">
+        <NAME>Female?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Night Worker?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Alcohol?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Family History?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Hormone Therapy?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Smoker?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Pollution?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Have Kids?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Lack Physical Activity?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Cancer?</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+
+    <!-- PCTs -->
+    <DEFINITION>
+        <FOR>Night Worker?</FOR>
+        <TABLE>0.89 0.11</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Female?</FOR>
+        <TABLE>0.38 0.62</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Pollution?</FOR>
+        <TABLE>0.95 0.05</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Family History?</FOR>
+        <TABLE>0.86 0.14</TABLE>
+    </DEFINITION>
+
+    <DEFINITION>
+        <FOR>Hormone Therapy?</FOR>
+        <GIVEN>Female?</GIVEN>
+        <TABLE>1.0 0.0 0.72 0.28</TABLE>
+    </DEFINITION><DEFINITION>
+        <FOR>Alcohol?</FOR>
+        <GIVEN>Female?</GIVEN>
+        <TABLE>0.98 0.02 0.994 0.006</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Smoker?</FOR>
+        <GIVEN>Alcohol?</GIVEN>
+        <GIVEN>Lack Physical activity?</GIVEN>
+        <TABLE>0.92 0.08 0.907 0.093 0.94 0.06 0.95 0.05</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Have Kids?</FOR>
+        <GIVEN>Night Worker?</GIVEN>
+        <GIVEN>Hormone Therapy?</GIVEN>
+        <GIVEN>Smoker?</GIVEN>
+        <TABLE>0.1 0.9 0.63 0.37 0.07 0.93 0.74 0.26 0.13 0.87 0.67 0.33 0.88 0.12 0.92 0.08 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Lack Physical Activity?</FOR>
+        <GIVEN>Alcohol?</GIVEN>
+        <GIVEN>Pollution?</GIVEN>
+        <TABLE>0.93 0.07 0.12 0.88 0.84 0.16 0.08 0.92</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Cancer?</FOR>
+        <GIVEN>Have Kids?</GIVEN>
+        <GIVEN>Family History?</GIVEN>
+        <GIVEN>Female?</GIVEN>
+        <TABLE>0.99 0.01 0.99 0.01 0.91 0.09 0.91 0.09 0.85 0.15 0.9 0.1 0.58 0.42 0.78 0.22</TABLE>
+    </DEFINITION>
+</NETWORK>
+</BIF>
